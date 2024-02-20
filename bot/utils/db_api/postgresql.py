@@ -58,9 +58,9 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    async def add_user(self, phone_number, telegram_id, full_name, confirm_code):
-        sql = "INSERT INTO accounts_user (password, phone_number, telegram_id, full_name, confirm_code) VALUES($1, $2, $3, $4, $5) returning *"
-        return await self.execute(sql, telegram_id, phone_number, telegram_id, full_name, confirm_code, fetchrow=True)
+    async def add_user(self, is_superuser, phone_number, telegram_id, full_name, is_staff, confirm_code, created_at):
+        sql = "INSERT INTO accounts_user (password, is_superuser, phone_number, telegram_id, full_name, is_staff, confirm_code, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *"
+        return await self.execute(sql, telegram_id, is_superuser, phone_number, telegram_id, full_name, is_staff, confirm_code, created_at, fetchrow=True)
 
     async def update_user_confirm_code(self, confirm_code, telegram_id):
         sql = "UPDATE accounts_user SET confirm_code=$1 WHERE telegram_id=$2"
