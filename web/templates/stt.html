@@ -26,7 +26,7 @@
             </div>
             <div>
                 <h3 class="login-button">
-                    <a href="login">STT</a>
+                    <a>{{ user.full_name }}</a>
                 </h3>
             </div>
         </div>
@@ -34,7 +34,7 @@
     <section class="container">
         <div class="title">
             <h3>
-                Ovozni matnga o'tkazuvchi dastur
+                Nutqni matnga o'tkazuvchi dastur
             </h3>
         </div>
 
@@ -65,7 +65,7 @@
                             <audio id="audio" controls>
                                 <source src="{{ audio.url }}" id="src" />
                             </audio>
-                            <input class="submit-button" type="submit" onclick="location.reload()" value="Takrorlash">
+                            <input class="submit-button for-reload" type="submit" onclick="location.reload()" value="Takrorlash">
                             {% else %}
                             {{ form.audio }}
                             <input class="submit-button" type="submit" value="Boshlash">

@@ -190,7 +190,7 @@ input{
 }
 .for-tools{
     width: 20%;
-    background-color: chartreuse;
+    background-color: #EEEDEB;
     border-radius: 15px;
     padding: 8px;
     transition: 0.5s;
@@ -199,7 +199,10 @@ input{
     font-family: 'IBM Plex Mono', monospace;
     border: none;
 }
-
+.for-reload{
+    background-color: #EEEDEB !important;
+    color: #0f172a !important;
+}
 .description {
     text-align: center;
 }
@@ -210,9 +213,10 @@ input{
     width: 50%;
     border-radius: 5px;
     outline: none;
-    background-color: chartreuse;
+    background-color: #0f172a;
     border-color: chartreuse;
     transition: 0.5s;
+    color: aliceblue;
 }
 .for-prompt{
     font-family: 'IBM Plex Mono', monospace;
@@ -223,6 +227,12 @@ input{
     transition: 0.5s;
 }
 
+.for-white{
+    background-color: #211C6A !important;
+}
+
+.for-reload:hover,
+.login-button:hover,
 .for-tools:hover,
 .submit-button:hover{
     color: aliceblue;
