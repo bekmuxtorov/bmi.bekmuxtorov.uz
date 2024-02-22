@@ -21,7 +21,7 @@ def login_view(request):
         user_data = User.objects.filter(confirm_code=confirm_code).first()
         if user_data:
             login(request, user_data)
-            return HttpResponse("Hammasi cho'tki")
+            return redirect('stt')
         else:
             redirect('login')
     return render(request, 'login.html')

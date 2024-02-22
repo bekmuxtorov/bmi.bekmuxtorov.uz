@@ -1,13 +1,10 @@
-from django.shortcuts import render
-from .models import Attempt
-
-from django.core.files.storage import FileSystemStorage
-
-from django.shortcuts import render, redirect
-from .models import Attempt
 from .forms import AttemptRecordForm
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='login')
 def speech_to_text(request):
     if request.method == 'POST':
         form = AttemptRecordForm(request.POST, request.FILES)

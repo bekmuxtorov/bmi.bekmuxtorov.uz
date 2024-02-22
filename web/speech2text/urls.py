@@ -3,5 +3,5 @@ from .views import speech_to_text
 
 
 urlpatterns = [
-    path('stt/', speech_to_text, name='stt')
+    path('', speech_to_text, name='stt')
 ]
