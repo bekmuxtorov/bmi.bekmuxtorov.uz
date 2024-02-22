@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STT | speechtotext.bekmuxtorov.uz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="header-box">
+            <div class="logo">
+                <h3>
+                    <a href="https://bekmuxtorov.uz">bekmuxtorov.uz</a>
+                </h3>
+            </div>
+            <div>
+                <h3 class="login-button">
+                    <a href="login">STT</a>
+                </h3>
+            </div>
+        </div>
+    </header>
+    <section class="container">
+        <div class="title">
+            <h3>
+                Ovozni matnga o'tkazuvchi dastur
+            </h3>
+        </div>
+
+        <div class="box">
+            <div class="prompt">
+                <div class="for-result-title">
+                    <h3>
+                        Audio
+                    </h3>
+                </div>
+                <div class="prompt-body">
+                    <div class="requirements-text">
+                        <h5>Talablar:</h5>
+                        - hajmi 5mbdan, <br>
+                        - davomiyligi 2 daqiqadan <br>
+                        yuqori bo'lmagan audio fayli jo'nata olasiz.
+                    </div>
+                    <div class="upload-file">
+                        <!-- <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" id="fileInput" name="audio_file">
+                            <audio id="audio" controls>
+                                <source src="" id="src" />
+                            </audio>
+                            <input class="submit-button" type="submit" value="Boshlash">
+                        </form> -->
+
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.audio }}
+                            <button type="submit">Upload Audio</button>
+                        </form>
+                        <audio id="audio" controls>
+                            <source src="{{audio.url}}" id="src" />
+                        </audio>
+
+                        {{ context }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="result">
+                <div class="for-result-title">
+                    <h3>
+                        Transkripsiya natijasi
+                    </h3>
+                </div>
+                <div class="result-text">
+                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30"
+                        rows="15"></textarea>
+                </div>
+                <div class="tools">
+                    <ul>
+                        <li class="for-tools">Botga o'tkazish</li>
+                        <button onclick="copyText()" class="for-tools">Ko'chirib olish</button>
+                        <button onclick="clearText()" class="for-tools">Tozalash</button>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <p><a href="https://asadbek_muxtorov.t.me"><span class="c-character">©</span>Asadbek Muxtorov</a>
+            </p>
+            <p>Software Engineer at Google</p>
+        </div>
+    </footer>
+</body>
+<script>
+    function copyText() {
+        var copyText = document.getElementById("result-body");
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        if (copyText.value.trim() != '') {
+            navigator.clipboard.writeText(copyText.value);
+
+            alert("Copied the text: " + copyText.value);
+        }
+    }
+
+    function clearText() {
+        document.getElementById("result-body").value = "";
+    }
+</script>
+
+</html>
