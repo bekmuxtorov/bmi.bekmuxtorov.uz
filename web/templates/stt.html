@@ -65,7 +65,8 @@
                             <audio id="audio" controls>
                                 <source src="{{ audio.url }}" id="src" />
                             </audio>
-                            <input class="submit-button for-reload" type="submit" onclick="location.reload()" value="Takrorlash">
+                            <input class="submit-button for-reload" type="submit" onclick="location.reload()"
+                                value="Takrorlash">
                             {% else %}
                             {{ form.audio }}
                             <input class="submit-button" type="submit" value="Boshlash">
@@ -84,8 +85,12 @@
                     </h3>
                 </div>
                 <div class="result-text">
-                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30"
-                        rows="15"></textarea>
+                    {% if result_data %}
+                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30" rows="15">{{ result_data.text }}
+                    </textarea>
+                    {% else %}
+                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30" rows="15"></textarea>
+                    {% endif %}
                 </div>
                 <div class="tools">
                     <ul>
