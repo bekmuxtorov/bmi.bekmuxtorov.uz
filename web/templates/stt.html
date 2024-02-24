@@ -53,12 +53,38 @@
                         - davomiyligi 2 daqiqadan <br>
                         yuqori bo'lmagan audio fayl jo'nata olasiz.
                     </div>
+                    <div class="button-replace">
+                        <button onclick="toFile()" class="to-file active">File bilan</button>
+                        <button onclick="toTelegramBot()" class="to-telegram-bot">Telegram bot bilan</button>
+                    </div>
+                    <div class="upload-telegram-bot no-show">
+                        {% if status_code == 400 %}
+                        <script>
+                            swal("Audio xabar yuklanmagan.", "Iltimos qayta urinib ko'ring", "error");
+                        </script>
+                        {% endif %}
+
+                        <div class="requirements-text">
+                            <a href="https://bekmuxtorov.uz">@uzstt_bot</a> botga quyidagi buyruq va kodni yuboring.
+                        </div>
+                        <div class="input-and-copy">
+                            <input type="text" readonly value="/audio {{audio_code}}" id="audio-code">
+                            <button onclick="copyAudioCode()" class="for-tools">Copy</button>
+                        </div>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="audio_code" value="{{audio_code}}">
+                            <input class="submit-button" type="submit" value="Boshlash">
+                        </form>
+
+                    </div>
                     <div class="upload-file">
                         {% if status_code == 401 %}
                         <script>
                             swal("Iltimos talablarga rioya qiling", "Yuborilgan audio faylning hajmi 1mb'dan yuqori.", "error");
                         </script>
                         {% endif %}
+
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {% if audio %}
@@ -71,7 +97,6 @@
                             {{ form.audio }}
                             <input class="submit-button" type="submit" value="Boshlash">
                             {% endif %}
-
                         </form>
                         {{ context }}
                     </div>
@@ -89,7 +114,8 @@
                     <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30" rows="15">{{ result_data.text }}
                     </textarea>
                     {% else %}
-                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30" rows="15"></textarea>
+                    <textarea placeholder="Natija shu yerda...." name="" id="result-body" cols="30"
+                        rows="15"></textarea>
                     {% endif %}
                 </div>
                 <div class="tools">
@@ -112,6 +138,19 @@
     </footer>
 </body>
 <script>
+    function copyAudioCode() {
+        var audioCode = document.getElementById("audio-code")
+
+        audioCode.select();
+        audioCode.setSelectionRange(0, 99999); // For mobile devices
+
+        if (audioCode.value.trim() != '') {
+            navigator.clipboard.writeText(audioCode.value);
+
+            alert("Copied the text: " + audioCode.value);
+        }
+    }
+
     function copyText() {
         var copyText = document.getElementById("result-body");
 
@@ -127,6 +166,30 @@
 
     function clearText() {
         document.getElementById("result-body").value = "";
+    }
+
+    function toFile() {
+        var uploadTelegramBot = document.querySelector(".upload-telegram-bot")
+        var uploadFile = document.querySelector(".upload-file")
+        var toFileButton = document.querySelector(".to-file")
+        var toTelegramButton = document.querySelector(".to-telegram-bot")
+
+        uploadTelegramBot.classList.add("no-show");
+        uploadFile.classList.remove("no-show");
+        toTelegramButton.classList.remove("active")
+        toFileButton.classList.add("active")
+    }
+
+    function toTelegramBot() {
+        var uploadTelegramBot = document.querySelector(".upload-telegram-bot")
+        var uploadFile = document.querySelector(".upload-file")
+        var toFileButton = document.querySelector(".to-file")
+        var toTelegramButton = document.querySelector(".to-telegram-bot")
+
+        uploadFile.classList.add("no-show");
+        uploadTelegramBot.classList.remove("no-show");
+        toTelegramButton.classList.add("active")
+        toFileButton.classList.remove("active")
     }
 </script>
 

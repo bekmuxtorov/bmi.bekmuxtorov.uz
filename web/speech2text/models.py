@@ -17,4 +17,12 @@ class Attempt(models.Model):
         null=True,
         blank=True
     )
+    audio_code = models.IntegerField(
+        verbose_name="Audio code",
+        blank=True,
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return ' | '.join(['Audio', str(self.id), self.user.full_name])

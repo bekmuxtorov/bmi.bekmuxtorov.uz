@@ -94,3 +94,7 @@ class Database:
 
     async def drop_users(self):
         await self.execute("DROP TABLE Users", execute=True)
+
+    async def add_attempt(self, audio, created_at, user_id, audio_code):
+        sql = "INSERT INTO speech2text_attempt (audio, created_at, user_id, audio_code) VALUES($1, $2, $3, $4) returning *"
+        return await self.execute(sql, audio, created_at, user_id, audio_code, fetchrow=True)
