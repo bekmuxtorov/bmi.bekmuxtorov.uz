@@ -26,7 +26,7 @@
             </div>
             <div>
                 <h3 class="login-button">
-                    <a href="login">Kirish</a>
+                    <a href="{% url 'login' %}">Kirish</a>
                 </h3>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <input inputmode="numeric" autofocus class="for-send-code-button" type="text" name="confirm_code"
                         unselectable="on" maxlength="6" required placeholder="__ __ __ __ __ __">
                 </div>
-                <input type="submit" class="submit-button for-send-code" value="Jo'natish">
+                <input type="submit" class="login-button for-send-code" value="Jo'natish">
 
             </form>
         </div>
