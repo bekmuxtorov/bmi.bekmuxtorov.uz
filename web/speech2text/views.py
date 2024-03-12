@@ -19,20 +19,27 @@ def generate_audio_code():
 def speech_to_text(request):
     first_audio_code = generate_audio_code()
     if request.method == 'POST':
+        attempt_audio_code = request.POST.get("attempt_audio_code")
+        if attempt_audio_code:
+            instance = Attempt.objects.filter(
+                audio_code=int(attempt_audio_code)).first()
+            instance.remove_audio_file()
+
         if request.POST.get("audio_code"):
             audio_code = request.POST.get("audio_code")
             audio_data = Attempt.objects.filter(
                 audio_code=int(audio_code)).first()
             if not audio_data:
-                return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 400, 'audio_code': first_audio_code})
+                return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 400, 'audio_code': audio_code})
 
             audio_url = audio_data.audio
             result_data = to_text(audio_url)
-            return render(request, 'stt.html', {"form": AttemptRecordForm(), "audio": audio_url, "result_data": result_data, 'audio_code': first_audio_code})
+            return render(request, 'stt.html', {"form": AttemptRecordForm(), "audio": audio_url, "result_data": result_data, 'audio_code': audio_code})
 
         form = AttemptRecordForm(request.POST, request.FILES)
         if form.is_valid():
             form.instance.user = request.user
+            form.instance.audio_code = first_audio_code
             audio_size = form.instance.audio.size
             if audio_size >= MAX_FILE_SIZE:
                 return render(request, "stt.html", context={"status_code": 401, "form": AttemptRecordForm(), 'audio_code': first_audio_code})
