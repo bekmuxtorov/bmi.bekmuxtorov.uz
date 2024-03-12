@@ -8,6 +8,8 @@ from random import randrange
 from loader import db, dp, bot
 from states.acceptance_audio import AcceptanceAudioState
 
+MAX_FILE_SIZE: int = 1000000
+
 
 async def generate_audio_code():
     return randrange(100000, 999999)
@@ -32,11 +34,19 @@ async def acceptance_audio(message: types.Message, state: FSMContext):
         await message.answer(text="⚡ Iltimos ovozli habar ko'rinishida ovoz jo'nating.")
         await AcceptanceAudioState.audio.set()
         return
-
+    file_size: int = 0
     if message.content_type == 'voice':
         audio = message.voice
+        file_size = message.voice.file_size
+
     elif message.content_type == 'audio':
         audio = message.audio
+        file_size = message.audio.file_size
+
+    if file_size > MAX_FILE_SIZE:
+        await message.answer(f"Iltimos qoidalarga rioya qiling.\n\nAudio xajmi {MAX_FILE_SIZE} baytdan katta.")
+        await AcceptanceAudioState.audio.set()
+        return
 
     file_id = audio.file_id
     file = await bot.get_file(file_id)

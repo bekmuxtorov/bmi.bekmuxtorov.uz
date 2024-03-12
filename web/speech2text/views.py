@@ -8,6 +8,8 @@ from .forms import AttemptRecordForm
 from .utils import to_text
 from .models import Attempt
 
+MAX_FILE_SIZE = 1000000
+
 
 def generate_audio_code():
     return randrange(100000, 999999)
@@ -32,7 +34,7 @@ def speech_to_text(request):
         if form.is_valid():
             form.instance.user = request.user
             audio_size = form.instance.audio.size
-            if audio_size >= 1000000:
+            if audio_size >= MAX_FILE_SIZE:
                 return render(request, "stt.html", context={"status_code": 401, "form": AttemptRecordForm(), 'audio_code': first_audio_code})
             attempt_instance = form.save()
             result_data = to_text(attempt_instance.audio.name)
