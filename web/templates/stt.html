@@ -91,6 +91,7 @@
                             <audio id="audio" controls>
                                 <source src="{{ audio.url }}" id="src" />
                             </audio>
+                            <input type="hidden" name="attempt_audio_code" value="{{ audio_code }}">
                             <input class="submit-button for-reload" type="submit" onclick="location.reload()"
                                 value="Takrorlash">
                             {% else %}
