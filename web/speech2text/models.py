@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+import os
 
 
 class Attempt(models.Model):
@@ -26,3 +27,8 @@ class Attempt(models.Model):
 
     def __str__(self):
         return ' | '.join(['Audio', str(self.id), self.user.full_name])
+
+    def remove_audio_file(self):
+        if self.audio:
+            if os.path.isfile(self.audio.path):
+                os.remove(self.audio.path)
