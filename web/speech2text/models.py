@@ -23,6 +23,11 @@ class Attempt(models.Model):
         blank=True,
         null=True
     )
+    text = models.TextField(
+        verbose_name="Audio text",
+        blank=True,
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
