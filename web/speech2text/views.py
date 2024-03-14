@@ -34,6 +34,7 @@ def speech_to_text(request):
 
             audio_url = audio_data.audio
             result_data = to_text(audio_url)
+            audio_data.set_text(result_text=result_data.get("text"))
             return render(request, 'stt.html', {"form": AttemptRecordForm(), "audio": audio_url, "result_data": result_data, 'audio_code': audio_code})
 
         form = AttemptRecordForm(request.POST, request.FILES)
@@ -45,6 +46,7 @@ def speech_to_text(request):
                 return render(request, "stt.html", context={"status_code": 401, "form": AttemptRecordForm(), 'audio_code': first_audio_code})
             attempt_instance = form.save()
             result_data = to_text(attempt_instance.audio.name)
+            attempt_instance.set_text(result_data.get("text"))
 
             return render(request, 'stt.html', {'audio': form.instance.audio, "form": AttemptRecordForm(), "result_data": result_data, 'audio_code': first_audio_code})
         else:

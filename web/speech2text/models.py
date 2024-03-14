@@ -33,6 +33,11 @@ class Attempt(models.Model):
     def __str__(self):
         return ' | '.join(['Audio', str(self.id), self.user.full_name])
 
+    def set_text(self, result_text: str) -> None:
+        print("4"*8)
+        self.text = result_text
+        self.save()
+
     def remove_audio_file(self):
         if self.audio:
             if os.path.isfile(self.audio.path):
