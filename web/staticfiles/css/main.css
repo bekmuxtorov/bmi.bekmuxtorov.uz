@@ -207,6 +207,16 @@ input{
     font-family: 'IBM Plex Mono', monospace;
     border: none;
 }
+
+.for-tools input{
+    background-color: #EEEDEB;
+    outline: none;
+    font-size: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    border: none;
+    transition: 0.5s;
+}
+
 .for-reload{
     background-color: #EEEDEB !important;
     color: #0f172a !important;
@@ -259,7 +269,8 @@ input{
 .for-reload:hover,
 .login-button:hover,
 .for-tools:hover,
-.submit-button:hover{
+.submit-button:hover,
+.for-tools:hover input{
     color: aliceblue;
     cursor: pointer;
     background-color: blue;

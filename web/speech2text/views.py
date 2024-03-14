@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from random import randrange
 
 from .forms import AttemptRecordForm
-from .utils import to_text
+from .utils import to_text, send_text_to_telegram_bot
 from .models import Attempt
 
 MAX_FILE_SIZE = 1000000
@@ -24,6 +24,19 @@ def speech_to_text(request):
             instance = Attempt.objects.filter(
                 audio_code=int(attempt_audio_code)).first()
             instance.remove_audio_file()
+
+        # FOR send_text_to_telegram_bot BUTTON
+        audio_code_for_send_text = request.POST.get("audio_code_for_send_text")
+        if audio_code_for_send_text:
+            instance = Attempt.objects.filter(
+                audio_code=int(audio_code_for_send_text)).first()
+            if not instance:
+                return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 407, "audio_code": first_audio_code})
+
+            status_ok = send_text_to_telegram_bot(instance)
+            if not status_ok:
+                return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 406, "audio_code": instance.audio_code, "result_data": {"text": instance.text}, "audio": instance.audio})
+            return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 405, "audio_code": instance.audio_code, "result_data": {"text": instance.text}, "audio": instance.audio})
 
         if request.POST.get("audio_code"):
             audio_code = request.POST.get("audio_code")

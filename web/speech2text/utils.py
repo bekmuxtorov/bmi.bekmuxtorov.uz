@@ -3,8 +3,11 @@ import os
 
 from django.conf import settings
 
+from .models import Attempt
+
 STT_API_KEY = settings.STT_API_KEY
 MEDIA_ROOT = settings.MEDIA_ROOT
+BOT_TOKEN = settings.BOT_TOKEN
 
 url = "https://mohir.ai/api/v1/stt"
 headers = {'Authorization': f'{STT_API_KEY}'}
@@ -24,3 +27,13 @@ def to_text(audio_url: str) -> dict:
             'progress': 1.0, 'result': {'range': [
                 0, 8281], 'text': 'bu tekshirish uchun kiritilgan matn hisoblanadi asadbek muxtorov tomonidan shunday dastur ustida ishlar boshlab yuborilgan'}, 'status': 'SUCCESS'}
     return {"status": data.get("status"), "text": data.get("result").get("text")} if data else None
+
+
+def send_text_to_telegram_bot(attempt: Attempt):
+    chat_id = attempt.user.telegram_id
+    message = f"✅ Audio code: {attempt.audio_code}\n\n"
+    message += attempt.text
+    message += "\n\n👉speechtotext.bekmuxtorov.uz "
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+    data = requests.get(url).json()
+    return data.get("ok")

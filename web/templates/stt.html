@@ -79,6 +79,24 @@
 
                     </div>
                     <div class="upload-file">
+                        {% if status_code == 405 %}
+                        <script>
+                            swal("Muvaffaqiyat yuborildi!", "Foydamiz tegayotganidan xursandmiz", "success");;
+                        </script>
+                        {% endif %}
+
+                        {% if status_code == 406 %}
+                        <script>
+                            swal("Jo'natish yakunlanmadi", "Qayta urinib ko'ring!", "info");
+                        </script>
+                        {% endif %}
+
+                        {% if status_code == 407 %}
+                        <script>
+                            swal("Iltimos talablarga rioya qiling", "Matnga o'tgazish uchun audio fayl yuklanmangan!", "error");
+                        </script>
+                        {% endif %}
+
                         {% if status_code == 401 %}
                         <script>
                             swal("Iltimos talablarga rioya qiling", "Yuborilgan audio faylning hajmi 1mb'dan yuqori.", "error");
@@ -121,7 +139,11 @@
                 </div>
                 <div class="tools">
                     <ul>
-                        <li class="for-tools">Botga o'tkazish</li>
+                        <form class="for-tools" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="audio_code_for_send_text" value="{{ audio_code }}">
+                            <input type="submit" value="Botga o'tkazish">
+                        </form>
                         <button onclick="copyText()" class="for-tools">Ko'chirib olish</button>
                         <button onclick="clearText()" class="for-tools">Tozalash</button>
                     </ul>
@@ -136,6 +158,7 @@
             </p>
             <p>Software Engineer at Google</p>
         </div>
+
     </footer>
 </body>
 <script>
@@ -148,7 +171,7 @@
         if (audioCode.value.trim() != '') {
             navigator.clipboard.writeText(audioCode.value);
 
-            alert("Copied the text: " + audioCode.value);
+            swal("Kod ko'chirib olindi!", "Bu kodni @uzstt_bot'ga kirib joylashtiring.", "success");;
         }
     }
 
@@ -160,8 +183,7 @@
 
         if (copyText.value.trim() != '') {
             navigator.clipboard.writeText(copyText.value);
-
-            alert("Copied the text: " + copyText.value);
+            swal("Muvaffaqiyat nusxa olindi!", "Foydamiz tegayotganidan xursandmiz.", "success");
         }
     }
 
