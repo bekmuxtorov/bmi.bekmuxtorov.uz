@@ -34,7 +34,6 @@ class Attempt(models.Model):
         return ' | '.join(['Audio', str(self.id), self.user.full_name])
 
     def set_text(self, result_text: str) -> None:
-        print("4"*8)
         self.text = result_text
         self.save()
 
