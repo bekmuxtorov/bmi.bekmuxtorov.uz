@@ -31,6 +31,12 @@
             </div>
         </div>
     </header>
+    <div class="loader-box no-show">
+        <div>
+            <h2>Biroz kuting...</h2>
+        </div>
+        <div class="loader"></div>
+    </div>
     <section class="container">
         <div class="title">
             <h3>
@@ -213,6 +219,21 @@
         uploadTelegramBot.classList.remove("no-show");
         toTelegramButton.classList.add("active")
         toFileButton.classList.remove("active")
+    }
+
+    document.onreadystatechange = function () {
+        var loadedBox = document.querySelector(".loader-box");
+        if (document.readyState === "uninitialized") {
+            loadedBox.classList.remove("no-show")
+        } else if (document.readyState === "loading") {
+            loadedBox.classList.remove("no-show")
+        } else if (document.readyState === "loaded") {
+            loadedBox.classList.remove("no-show")
+        } else if (document.readyState === "interactive") {
+            loadedBox.classList.remove("no-show")
+        } else if (document.readyState === "complete") {
+            loadedBox.classList.add("no-show")
+        }
     }
 </script>
 
