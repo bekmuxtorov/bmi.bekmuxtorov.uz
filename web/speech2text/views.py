@@ -46,7 +46,7 @@ def speech_to_text(request):
                 return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 400, 'audio_code': audio_code})
 
             audio_url = audio_data.audio
-            if not can_use(audio_data.get("user")):
+            if not can_use(audio_data.user):
                 return render(request, 'stt.html', {"audio": audio_url, "form": AttemptRecordForm(), "status_code": 408, 'audio_code': first_audio_code})
 
             result_data = to_text(audio_url)
