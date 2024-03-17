@@ -2,7 +2,9 @@ import requests
 import os
 
 from django.conf import settings
+from django.utils import timezone
 
+from accounts.models import User
 from .models import Attempt
 
 STT_API_KEY = settings.STT_API_KEY
@@ -11,6 +13,15 @@ BOT_TOKEN = settings.BOT_TOKEN
 
 url = "https://mohir.ai/api/v1/stt"
 headers = {'Authorization': f'{STT_API_KEY}'}
+
+
+def can_use(user: User) -> bool:
+    attempt_count = Attempt.objects.filter(
+        user=user,
+        created_at__day=timezone.now().day
+    ).count()
+
+    return attempt_count <= user.daily_use
 
 
 def to_text(audio_url: str) -> dict:

@@ -103,6 +103,12 @@
                         </script>
                         {% endif %}
 
+                        {% if status_code == 408 %}
+                        <script>
+                            swal("Belgilangan urinishlar tugadi!", "24 soatdan so'ng qayta urinib ko'ring!  ", "warning");;
+                        </script>
+                        {% endif %}
+
                         {% if status_code == 401 %}
                         <script>
                             swal("Iltimos talablarga rioya qiling", "Yuborilgan audio faylning hajmi 1mb'dan yuqori.", "error");

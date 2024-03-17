@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from random import randrange
 
 from .forms import AttemptRecordForm
-from .utils import to_text, send_text_to_telegram_bot
+from .utils import to_text, send_text_to_telegram_bot, can_use
 from .models import Attempt
 
 MAX_FILE_SIZE = 1000000
@@ -46,18 +46,25 @@ def speech_to_text(request):
                 return render(request, 'stt.html', {"form": AttemptRecordForm(), "status_code": 400, 'audio_code': audio_code})
 
             audio_url = audio_data.audio
+            if not can_use(audio_data.get("user")):
+                return render(request, 'stt.html', {"audio": audio_url, "form": AttemptRecordForm(), "status_code": 408, 'audio_code': first_audio_code})
+
             result_data = to_text(audio_url)
             audio_data.set_text(result_text=result_data.get("text"))
             return render(request, 'stt.html', {"form": AttemptRecordForm(), "audio": audio_url, "result_data": result_data, 'audio_code': audio_code})
 
         form = AttemptRecordForm(request.POST, request.FILES)
         if form.is_valid():
-            form.instance.user = request.user
+            user = request.user
+            form.instance.user = user
             form.instance.audio_code = first_audio_code
             audio_size = form.instance.audio.size
             if audio_size >= MAX_FILE_SIZE:
                 return render(request, "stt.html", context={"status_code": 401, "form": AttemptRecordForm(), 'audio_code': first_audio_code})
             attempt_instance = form.save()
+            if not can_use(request.user):
+                return render(request, 'stt.html', {'audio': form.instance.audio, "form": AttemptRecordForm(), "status_code": 408, 'audio_code': first_audio_code})
+
             result_data = to_text(attempt_instance.audio.name)
             attempt_instance.set_text(result_data.get("text"))
 
