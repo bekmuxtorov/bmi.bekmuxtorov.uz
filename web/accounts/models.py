@@ -35,6 +35,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="is staff",
         default=False
     )
+    daily_use = models.IntegerField(
+        verbose_name="Kunlik foydalanish imkoniyati",
+        null=True,
+        blank=True,
+        default=2
+    )
     created_at = models.DateTimeField(
         verbose_name="Created time",
         auto_now_add=True
