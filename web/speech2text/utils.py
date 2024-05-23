@@ -44,7 +44,7 @@ def send_text_to_telegram_bot(attempt: Attempt):
     chat_id = attempt.user.telegram_id
     message = f"✅ Audio code: {attempt.audio_code}\n\n"
     message += attempt.text
-    message += "\n\n👉speechtotext.bekmuxtorov.uz "
+    message += "\n\n👉textify.bekmuxtorov.uz "
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     data = requests.get(url).json()
     return data.get("ok")
