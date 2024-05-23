@@ -24,7 +24,7 @@ async def bot_start(message: types.Message):
     user_id = message.from_user.id
     user = await db.select_user(telegram_id=str(user_id))
     if not user:
-        await message.answer(text=f"Salom {message.from_user.full_name} 👋 \n<a href='https://soundtotext.bekmuxtorov.uz'>@soundtotext</a>'ning rasmiy botiga xush kelibsiz!\n\n⬇️ Kontaktingizni yuboring(tugmani bosib)", reply_markup=contact_request_button)
+        await message.answer(text=f"Salom {message.from_user.full_name} 👋 \n<a href='https://textify.bekmuxtorov.uz'>textify.bekmuxtorov.uz</a>'ning rasmiy botiga xush kelibsiz!\n\n⬇️ Kontaktingizni yuboring(tugmani bosib)", reply_markup=contact_request_button)
         await ResgisterState.phone_number.set()
     else:
         text = "🔑 Yangi kod olish uchun /login ni bosing"
@@ -68,5 +68,5 @@ async def set_password(message: types.Message):
         text = await writing_code_message(confirm_code)
         await message.answer(text=text)
     else:
-        await message.answer(text=f"Salom {message.from_user.full_name} 👋 \n<a href='https://soundtotext.bekmuxtorov.uz'>@soundtotext</a>'ning rasmiy botiga xush kelibsiz!\n\n⬇️ Kontaktingizni yuboring(tugmani bosib)", reply_markup=contact_request_button)
+        await message.answer(text=f"Salom {message.from_user.full_name} 👋 \n<a href='https://textify.bekmuxtorov.uz'>textify.bekmuxtorov.uz</a>'ning rasmiy botiga xush kelibsiz!\n\n⬇️ Kontaktingizni yuboring(tugmani bosib)", reply_markup=contact_request_button)
         await ResgisterState.phone_number.set()
