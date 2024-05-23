@@ -59,7 +59,7 @@ class Database:
         return sql, tuple(parameters.values())
 
     async def add_user(self, is_superuser, phone_number, telegram_id, full_name, is_staff, daily_use,confirm_code, created_at):
-        sql = "INSERT INTO accounts_user (password, is_superuser, phone_number, telegram_id, full_name, is_staff, daily_use,confirm_code, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *"
+        sql = "INSERT INTO accounts_user (password, is_superuser, phone_number, telegram_id, full_name, is_staff, daily_use,confirm_code, created_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *"
         return await self.execute(sql, telegram_id, is_superuser, phone_number, telegram_id, full_name, is_staff, daily_use,confirm_code, created_at, fetchrow=True)
 
     async def update_user_confirm_code(self, confirm_code, telegram_id):
