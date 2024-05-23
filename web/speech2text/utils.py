@@ -20,8 +20,8 @@ def can_use(user: User) -> bool:
         user=user,
         created_at__day=timezone.now().day
     ).count()
-
-    return attempt_count <= user.daily_use
+    print(attempt_count, user.daily_use)
+    return int(attempt_count) <= int(user.daily_use)
 
 
 def to_text(audio_url: str) -> dict:
@@ -32,11 +32,11 @@ def to_text(audio_url: str) -> dict:
         'run_diarization': 'false',
         'blocking': 'false',
     }
-    # response = requests.post(url, headers=headers, files=files, params=params)
-    # data = response.json()
-    data = {'id': 'stt/8b3ac67a-7297-4fe3-a62b-fff3bcd10ad4/5d2eb5b4-5dde-4ab2-a46f-5177e83c7bec',
-            'progress': 1.0, 'result': {'range': [
-                0, 8281], 'text': 'bu tekshirish uchun kiritilgan matn hisoblanadi asadbek muxtorov tomonidan shunday dastur ustida ishlar boshlab yuborilgan'}, 'status': 'SUCCESS'}
+    response = requests.post(url, headers=headers, files=files, params=params)
+    data = response.json()
+    # data = {'id': 'stt/8b3ac67a-7297-4fe3-a62b-fff3bcd10ad4/5d2eb5b4-5dde-4ab2-a46f-5177e83c7bec',
+    #         'progress': 1.0, 'result': {'range': [
+    #             0, 8281], 'text': 'bu tekshirish uchun kiritilgan matn hisoblanadi asadbek muxtorov tomonidan shunday dastur ustida ishlar boshlab yuborilgan'}, 'status': 'SUCCESS'}
     return {"status": data.get("status"), "text": data.get("result").get("text")} if data else None
 
 
