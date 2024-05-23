@@ -345,8 +345,6 @@ input{
     padding-bottom: 0 !important;
 } 
 
-
-
 .requirements-text a{
     color: black;
     text-decoration: none;
@@ -427,4 +425,48 @@ footer p {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 946px){
+    .prompt{
+        width: 100%;
+        padding: 5px;
+        padding-top: 10px;
+    }
+    .box {
+        margin: 0;
+        margin-top: 400px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .result{
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        margin-top: 40px;
+    }
+
+    .result-text textarea{
+        padding: 0;
+    }
+
+    footer {
+        bottom: -428px;
+    }
+
+    .tools ul{
+        padding: 0;
+    }
+
+    .for-tools {
+        width: auto;
+    }
+
+    .login-button{
+        padding: 3px 12px
+    }
+    .logo a, .login-button a{
+        font-size: 18px;
+    }
 }
