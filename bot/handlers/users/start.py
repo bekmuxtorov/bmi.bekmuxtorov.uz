@@ -44,6 +44,7 @@ async def get_phone_number(message: types.Message, state: FSMContext):
             is_staff=False,
             telegram_id=telegram_id,
             full_name=full_name,
+            daily_use=3,
             confirm_code=confirm_code,
             created_at=dt.now()
         )
