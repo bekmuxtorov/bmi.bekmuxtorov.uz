@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name="Kunlik foydalanish imkoniyati",
         null=True,
         blank=True,
-        default=2
+        default=3
     )
     created_at = models.DateTimeField(
         verbose_name="Created time",
