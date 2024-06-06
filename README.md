@@ -30,7 +30,7 @@ PDF formatda ko'rish: [DGU]()
 <hr/>
 
 <center>
-    <img src="https://drive.google.com/file/d/1HavWGUhOsuPIslWBcgUQJaBoq1HBVVkF/view?usp=sharing" alt="Qr Code">
+    <img src="https://drive.google.com/file/d/1HavWGUhOsuPIslWBcgUQJaBoq1HBVVkF/view" alt="Qr Code">
     <br/>
     Asadbek Muxtorov - FarDU
 </center>
