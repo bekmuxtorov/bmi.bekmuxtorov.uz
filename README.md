@@ -6,6 +6,10 @@
 ## Bitiruv malakaviy ishi hujjati
 [PDF formatda ko'rish](https://drive.google.com/file/d/1VO0Zeqnhua-yYWQsRQ_0HV_YB3qXrfjT/view)
 
+[Rahbar xulosasi](https://drive.google.com/file/d/1qk3_iMX3AuyXMJkFwpzuEcX6ep15LOuJ/view?usp=sharing)
+
+[Taqriz](https://drive.google.com/file/d/1Gt2wHG8OZVDqGkzx7r7g_xH6moEH3RVa/view?usp=sharing)
+
 ## Web loyiha
 
 Dastur manbasi: [GitHubda ko'rish](https://github.com/bekmuxtorov/bmi.bekmuxtorov.uz/tree/main/web)
